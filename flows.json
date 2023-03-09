@@ -94,9 +94,7 @@
             "1ad87ca15c53f638"
         ],
         "x": 694,
-        "y": 39,
-        "w": 662,
-        "h": 282
+        "y": 39
     },
     {
         "id": "ce6460d73492ca37",
@@ -120,9 +118,7 @@
             "8494ec6925258909"
         ],
         "x": 14,
-        "y": 79,
-        "w": 652,
-        "h": 322
+        "y": 79
     },
     {
         "id": "37465ebc5e130976",
@@ -152,9 +148,7 @@
             "bacbde316edfab2b"
         ],
         "x": 34,
-        "y": 1259,
-        "w": 952,
-        "h": 462
+        "y": 1259
     },
     {
         "id": "f47665b27ffc264c",
@@ -2876,7 +2870,7 @@
         "type": "function",
         "z": "7e82f41b9fadfb3c",
         "name": "Generate Group Title",
-        "func": "const ANTENNA_LABELS = {\n    \"ANT1\": \"A1\",\n    \"ANT2\": \"A2\"\n}\n\nconst flex_antennas = global.get(\"flex_antennas\")\nconst this_slice = flow.get(\"this_slice\")\nconst flex_slice = global.get(\"flex_slices\")[this_slice]\n\nlet parts = []\nparts.push(\"️<span class='ki2d-pill ki2d-blue'>\" + flex_slice.index_letter + \"</span>\")\n\nlet freq = flex_slice.RF_freq_fmt.split('.')\nparts.push(\"<span class='ki2d-freq''><span class='ki2d-freq-megas'>\" + freq[0] + \"</span>.<span class='ki2d-freq-kilos'>\" + freq[1] + \"</span>.<span class='ki2d-freq-hertz'>\" + freq[2] + \"</span></span>\")\n\nparts.push(flex_slice.mode)\n\nif (flex_antennas.rx == flex_antennas.tx) {\n    parts.push(ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n} else {\n    parts.push(\n        (ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n        + \"/\" +\n        (ANTENNA_LABELS[flex_antennas.tx] || flex_antennas.tx)\n    )\n}\n\nreturn { payload: parts.join(\"&nbsp;&nbsp;&nbsp;\"), slice: this_slice }\n",
+        "func": "const ANTENNA_LABELS = {\n    \"ANT1\": \"A1\",\n    \"ANT2\": \"A2\"\n}\n\nconst flex_antennas = global.get(\"flex_antennas\")\nconst this_slice = flow.get(\"this_slice\")\nconst flex_slice = global.get(\"flex_slices\")[this_slice]\n\nlet parts = []\n\nif (flex_slice) {\n    parts.push(\"️<span class='ki2d-pill ki2d-blue'>\" + flex_slice.index_letter + \"</span>\")\n\n    let freq = flex_slice.RF_freq_fmt.split('.')\n    parts.push(\"<span class='ki2d-freq''><span class='ki2d-freq-megas'>\" + freq[0] + \"</span>.<span class='ki2d-freq-kilos'>\" + freq[1] + \"</span>.<span class='ki2d-freq-hertz'>\" + freq[2] + \"</span></span>\")\n\n    parts.push(flex_slice.mode)\n}\n\nif (flex_antennas) {\n    if (flex_antennas.rx == flex_antennas.tx) {\n        parts.push(ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n    } else {\n        parts.push(\n            (ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n            + \"/\" +\n            (ANTENNA_LABELS[flex_antennas.tx] || flex_antennas.tx)\n        )\n    }\n}\n\nreturn { payload: parts.join(\"&nbsp;&nbsp;&nbsp;\"), slice: this_slice }\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
