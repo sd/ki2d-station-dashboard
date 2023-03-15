@@ -71,7 +71,9 @@
             "1ad87ca15c53f638"
         ],
         "x": 694,
-        "y": 39
+        "y": 39,
+        "w": 662,
+        "h": 282
     },
     {
         "id": "ce6460d73492ca37",
@@ -95,7 +97,9 @@
             "8494ec6925258909"
         ],
         "x": 14,
-        "y": 79
+        "y": 79,
+        "w": 652,
+        "h": 322
     },
     {
         "id": "37465ebc5e130976",
@@ -125,7 +129,9 @@
             "bacbde316edfab2b"
         ],
         "x": 34,
-        "y": 1259
+        "y": 1259,
+        "w": 952,
+        "h": 462
     },
     {
         "id": "f47665b27ffc264c",
@@ -1359,7 +1365,7 @@
         "type": "function",
         "z": "1ad292ee7f411760",
         "name": "Capture ATU state",
-        "func": "const flex_atu_state = {\n}\n\nif (msg.topic === \"atu\") {\n    flex_atu_state.status = msg.payload.status\n\n    if (msg.payload.status === \"TUNE_MANUAL_BYPASS\") {\n        flex_atu_state.enabled = false\n    } else if (msg.payload.status === \"TUNE_SUCCESSFUL\") {\n        flex_atu_state.enabled = true\n    } else if (msg.payload.status) {\n        flex_atu_state.enabled = false\n    }\n    global.set(\"flex_atu_state\", flex_atu_state)\n}\n\nreturn msg;",
+        "func": "const flex_atu = {\n}\n\nif (msg.topic === \"atu\") {\n    flex_atu.status = msg.payload.status\n\n    if (msg.payload.status === \"TUNE_MANUAL_BYPASS\") {\n        flex_atu.enabled = false\n    } else if (msg.payload.status === \"TUNE_SUCCESSFUL\") {\n        flex_atu.enabled = true\n    } else if (msg.payload.status) {\n        flex_atu.enabled = false\n    }\n    global.set(\"flex_atu\", flex_atu)\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1382,7 +1388,7 @@
         "order": 10,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    .ki2d-hidden {\n        display: none !important;\n    }\n\n    .ki2d-pill {\n      display: inline-block;\n      padding: 0px 8px 0px 8px;\n      border-radius: 6px;\n      background-color: #AAA;\n      color: #666\n    }\n\n    .ki2d-blue.ki2d-pill {\n      background-color: #48D;\n      color: #222;\n    }\n\n    .ki2d-freq {\n      color: #C0C0C0;\n    }\n\n    .ki2d-freq-megas {\n      font-weight: bolder;\n      color: #F0F0F0;\n    }\n\n    .ki2d-freq-kilos {\n      font-weight: light;\n    }\n    \n    .ki2d-freq-hertz {\n      font-weight: light;\n      font-size: 70%;\n    }\n    \n    .ki2d-half-button .md-button {\n      height: 60%;\n      margin-top: 20%;\n    }\n    \n    .ki2d-antenna-port-rx {\n      color: #3366FF;\n      font-weight: bold;\n    }\n\n    .ki2d-antenna-port-tx {\n      color: #F02222;\n      font-weight: bold;\n    }\n\n    .ki2d-antenna-button-disabled {\n      color: #F0F0F0;\n      opacity: 0.4;\n    }\n\n    .ki2d-antenna-button-enabled {\n      color: #F0F0F0;\n      opacity: 0.6;\n    }\n    \n    .ki2d-antenna-button-selected {\n      color: #F0F0F0;\n      opacity: 1;\n    }\n\n    .nr-dashboard-ui_valuetrail[ui-card-size*=\"x2\"] svg text {\n      font-size: 1.4em !important;\n    }\n    .nr-dashboard-ui_valuetrail[ui-card-size*=\"x2\"] svg text.small {\n      font-size: 0.6em !important;\n    }\n    \n    .md-button {\n      /* Make two-line buttons visible */\n      line-height: 18px;\n\n      text-transform: none !important;\n    }\n</style>",
+        "format": "<style>\n    .ki2d-hidden {\n        display: none !important;\n    }\n\n    .ki2d-pill {\n      display: inline-block;\n      padding: 0px 8px 0px 8px;\n      border-radius: 6px;\n      background-color: #AAA;\n      color: #666\n    }\n\n    .ki2d-blue.ki2d-pill {\n      background-color: #48D;\n      color: #222;\n    }\n\n    .ki2d-red.ki2d-pill {\n      background-color: #D44;\n      color: #F0F0F0;\n    }\n\n    .ki2d-freq {\n      color: #C0C0C0;\n    }\n\n    .ki2d-freq-megas {\n      font-weight: bolder;\n      color: #F0F0F0;\n    }\n\n    .ki2d-freq-kilos {\n      font-weight: light;\n    }\n    \n    .ki2d-freq-hertz {\n      font-weight: light;\n      font-size: 70%;\n    }\n    \n    .ki2d-half-button .md-button {\n      height: 60%;\n      margin-top: 20%;\n    }\n    \n    .ki2d-antenna-port-rx {\n      color: #3366FF;\n      font-weight: bold;\n    }\n\n    .ki2d-antenna-port-tx {\n      color: #F02222;\n      font-weight: bold;\n    }\n\n    .ki2d-antenna-button-disabled {\n      color: #F0F0F0;\n      opacity: 0.4;\n    }\n\n    .ki2d-antenna-button-enabled {\n      color: #F0F0F0;\n      opacity: 0.6;\n    }\n    \n    .ki2d-antenna-button-selected {\n      color: #F0F0F0;\n      opacity: 1;\n    }\n\n    .nr-dashboard-ui_valuetrail[ui-card-size*=\"x2\"] svg text {\n      font-size: 1.4em !important;\n    }\n    .nr-dashboard-ui_valuetrail[ui-card-size*=\"x2\"] svg text.small {\n      font-size: 0.6em !important;\n    }\n    \n    .md-button {\n      /* Make two-line buttons visible */\n      line-height: 18px;\n\n      text-transform: none !important;\n    }\n</style>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
@@ -1835,7 +1841,8 @@
             "6e7d47156d7c8aa5",
             "6eaf58d9490bddb2",
             "fe2c4beb7607fef1",
-            "fc79adccd50e738d"
+            "fc79adccd50e738d",
+            "78cf059d5b1191bc"
         ],
         "x": 1115,
         "y": 940,
@@ -1852,7 +1859,8 @@
             "df2ef90b36465a33",
             "9708da83bef7d4ad",
             "e1b46d5eba7d458a",
-            "59ea912803a33fbb"
+            "59ea912803a33fbb",
+            "b0756ae05aeb63c8"
         ],
         "x": 1155,
         "y": 960,
@@ -1999,7 +2007,9 @@
         "y": 1020,
         "wires": [
             [],
-            [],
+            [
+                "a2d447cfcf9de86a"
+            ],
             [],
             [
                 "a2d447cfcf9de86a"
@@ -2803,7 +2813,7 @@
         "type": "function",
         "z": "7e82f41b9fadfb3c",
         "name": "Generate Group Title",
-        "func": "const ANTENNA_LABELS = {\n    \"ANT1\": \"A1\",\n    \"ANT2\": \"A2\"\n}\n\nconst flex_antennas = global.get(\"flex_antennas\")\nconst this_slice = flow.get(\"this_slice\")\nconst flex_slice = global.get(\"flex_slices\")[this_slice]\n\nlet parts = []\n\nif (flex_slice) {\n    parts.push(\"️<span class='ki2d-pill ki2d-blue'>\" + flex_slice.index_letter + \"</span>\")\n\n    let freq = flex_slice.RF_freq_fmt.split('.')\n    parts.push(\"<span class='ki2d-freq''><span class='ki2d-freq-megas'>\" + freq[0] + \"</span>.<span class='ki2d-freq-kilos'>\" + freq[1] + \"</span>.<span class='ki2d-freq-hertz'>\" + freq[2] + \"</span></span>\")\n\n    parts.push(flex_slice.mode)\n}\n\nif (flex_antennas) {\n    if (flex_antennas.rx == flex_antennas.tx) {\n        parts.push(ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n    } else {\n        parts.push(\n            (ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n            + \"/\" +\n            (ANTENNA_LABELS[flex_antennas.tx] || flex_antennas.tx)\n        )\n    }\n}\n\nreturn { payload: parts.join(\"&nbsp;&nbsp;&nbsp;\"), slice: this_slice }\n",
+        "func": "const ANTENNA_LABELS = {\n    \"ANT1\": \"A1\",\n    \"ANT2\": \"A2\"\n}\n\nconst flex_antennas = global.get(\"flex_antennas\")\nconst this_slice = flow.get(\"this_slice\")\nconst flex_slice = global.get(\"flex_slices\")[this_slice]\n\nlet parts = []\n\nif (flex_slice) {\n    parts.push(\"️<span class='ki2d-pill ki2d-blue'>\" + flex_slice.index_letter + \"</span>\")\n\n    let freq = flex_slice.RF_freq_fmt.split('.')\n    parts.push(\"<span class='ki2d-freq''><span class='ki2d-freq-megas'>\" + freq[0] + \"</span>.<span class='ki2d-freq-kilos'>\" + freq[1] + \"</span>.<span class='ki2d-freq-hertz'>\" + freq[2] + \"</span></span>\")\n\n    parts.push(flex_slice.mode)\n\n    if (flex_slice.tx) {\n        parts.push(\"️<span class='ki2d-pill ki2d-red'>TX</span>\")\n    }\n}\n\nif (flex_antennas) {\n    if (flex_antennas.rx == flex_antennas.tx) {\n        parts.push(ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n    } else {\n        parts.push(\n            (ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n            + \"/\" +\n            (ANTENNA_LABELS[flex_antennas.tx] || flex_antennas.tx)\n        )\n    }\n}\n\nreturn { payload: parts.join(\"&nbsp;&nbsp;&nbsp;\"), slice: this_slice }\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2850,7 +2860,7 @@
         "type": "function",
         "z": "7e82f41b9fadfb3c",
         "name": "Capture TX/ATU State",
-        "func": "const this_slice = flow.get(\"this_slice\")\nconst slice = global.get(\"flex_slices\")[this_slice]\nconst flex_tx_status = global.get(\"flex_tx_status\")\nconst flex_atu_status = global.get(\"flex_atu_status\")\n\nconst atu_info = flow.get(\"atu_info\") || {\n    button_label: \"ATU\",\n    button_background: \"\",\n    button_enabled: true,\n};\n\nif (msg.topic === \"atu\") {\n    if (msg.payload.status === \"TUNE_MANUAL_BYPASS\") {\n        atu_info.enabled = false\n        atu_info.status = msg.payload.status\n        atu_info.button_command = \"atu start\"\n        atu_info.button_label = \"<small>NO ATU</small>\"\n        atu_info.button_background = \"gray\"\n        atu_info.button_enabled = true\n    } else if (msg.payload.status === \"TUNE_SUCCESSFUL\") {\n        atu_info.enabled = true\n        atu_info.status = msg.payload.status\n        atu_info.button_command = \"atu bypass\"\n        atu_info.button_label = \"ATU\"\n        atu_info.button_background = \"\"\n        atu_info.button_enabled = true\n\n        atu_info.max_swr = undefined\n    } else if (msg.payload.status === \"TUNE_IN_PROGRESS\") {\n        atu_info.enabled = false\n        atu_info.status = msg.payload.status\n        atu_info.button_command = \"atu start\"\n        atu_info.button_label = \"TU 🟡\"\n        atu_info.button_background = \"gray\"\n        atu_info.button_enabled = false\n    } else {\n        atu_info.button_label = \"ATU\"\n        atu_info.atu_button_background = \"\"\n        atu_info.button_enabled = true\n    }\n} else if (msg.topic.startsWith(\"TX-/\")) {\n    if (atu_info.status === \"TUNE_IN_PROGRESS\") {\n        atu_info.button_label = \"TU 🟡\"\n    } else {\n        atu_info.button_label = \"TX 🔴\"\n    }\n    atu_info.max_swr = Math.max(msg.payload.value, atu_info.max_swr || 1)\n} else if (msg.topic == \"interlock\") {\n    if (msg.payload.state === \"READY\") {\n        if (atu_info.enabled) {\n            atu_info.button_label = \"ATU\"\n        } else {\n            atu_info.button_label = \"<small>NO ATU</small>\"\n        }\n    }\n} else if (msg.topic.startsWith(\"antenna_switch\")) {\n    atu_info.max_swr = undefined\n}\n\nflow.set(\"atu_info\", atu_info)\n\nif (atu_info.max_swr) {\n    let color = \"\"\n    if (atu_info.max_swr > 2) color = \"red\"\n    else if(atu_info.max_swr > 1.5) color = \"orange\"\n\n    return {\n        label: atu_info.button_label + \"<br /><small style='color: \" + color + \"';>\" + atu_info.max_swr.toFixed(1) + \"</small>\",\n        enabled: atu_info.button_enabled,\n        background: atu_info.button_background\n    }\n} else {\n    return {\n        label: atu_info.button_label,\n        enabled: atu_info.button_enabled,\n        background: atu_info.button_background\n    }\n}\n\n\nreturn {\n    label: \"Tune <br /> \" + msg.payload.value\n}",
+        "func": "const this_slice = flow.get(\"this_slice\")\nconst slice = global.get(\"flex_slices\")[this_slice]\nconst flex_tx_status = global.get(\"flex_tx_status\")\nconst flex_atu = global.get(\"flex_atu\")\n\nconst atu_info = flow.get(\"atu_info\") || {\n    button_label: \"ATU\",\n    button_background: \"\",\n    button_enabled: true,\n};\n\nif (flex_atu.status === \"TUNE_MANUAL_BYPASS\" || flex_atu.status === \"TUNE_BYPASS\") {\n    atu_info.button_command = \"atu start\"\n    atu_info.button_label = \"<small>NO ATU</small>\"\n    atu_info.button_background = \"gray\"\n    atu_info.button_enabled = true\n} else if (flex_atu.status === \"TUNE_SUCCESSFUL\") {\n    atu_info.button_command = \"atu bypass\"\n    atu_info.button_label = \"ATU\"\n    atu_info.button_background = \"\"\n    atu_info.button_enabled = true\n} else if (flex_atu.status === \"TUNE_IN_PROGRESS\") {\n    atu_info.button_command = \"atu start\"\n    atu_info.button_label = \"TU 🟡\"\n    atu_info.button_background = \"gray\"\n    atu_info.button_enabled = false\n} else {\n    atu_info.button_label = \"ATU\"\n    atu_info.button_command = \"atu bypass\"\n    atu_info.button_background = \"\"\n    atu_info.button_enabled = true\n}\n\nif (msg.topic === \"atu\") {\n    if (slice.tx && msg.payload.status === \"TUNE_SUCCESSFUL\") {\n        atu_info.max_swr = undefined\n    }\n} else if (msg.topic.startsWith(\"TX-/\")) {\n    if (flex_atu.status === \"TUNE_IN_PROGRESS\") {\n        atu_info.button_label = \"TU 🟡\"\n    } else {\n        atu_info.button_label = \"TX 🔴\"\n    }\n    atu_info.max_swr = Math.max(msg.payload.value, atu_info.max_swr || 1)\n// } else if (msg.topic == \"interlock\") {\n//     if (msg.payload.state === \"READY\") {\n//         if (flex_atu.enabled) {\n//             atu_info.button_label = \"ATU\"\n//             atu_info.button_command = \"atu bypass\"\n//         } else {\n//             atu_info.button_label = \"<small>NO ATU</small>\"\n//             atu_info.button_command = \"atu start\"\n//         }\n//     }\n} else if (msg.topic.startsWith(\"antenna_switch\")) {\n    atu_info.max_swr = undefined\n}\n\nif (!slice.tx) {\n    atu_info.button_command = \"slice set \" + this_slice + \" tx=1\"\n    flow.set(\"atu_info\", atu_info)\n\n    return {\n        label: \"NO TX\",\n        enabled: true,\n        background: \"#222\"\n    }\n} else {\n    flow.set(\"atu_info\", atu_info)\n\n    if (atu_info.max_swr) {\n        let color = \"\"\n        if (atu_info.max_swr > 2) color = \"red\"\n        else if (atu_info.max_swr > 1.5) color = \"orange\"\n\n        return {\n            label: atu_info.button_label + \"<br /><small style='color: \" + color + \"';>\" + atu_info.max_swr.toFixed(1) + \"</small>\",\n            enabled: atu_info.button_enabled,\n            background: atu_info.button_background\n        }\n    } else {\n        return {\n            label: atu_info.button_label,\n            enabled: atu_info.button_enabled,\n            background: atu_info.button_background\n        }\n    }\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3572,6 +3582,42 @@
         "wires": []
     },
     {
+        "id": "4f9b3a4f7ec2b816",
+        "type": "comment",
+        "z": "7e82f41b9fadfb3c",
+        "name": "Globals ✏️",
+        "info": "",
+        "x": 500,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "78cf059d5b1191bc",
+        "type": "link in",
+        "z": "7e82f41b9fadfb3c",
+        "name": "Slice Messages into Slice 0 Flow",
+        "links": [
+            "86a331584b8655a8"
+        ],
+        "x": 175,
+        "y": 1020,
+        "wires": [
+            [
+                "9128ac0d9879df16"
+            ]
+        ]
+    },
+    {
+        "id": "c9dc9ac44d52abde",
+        "type": "comment",
+        "z": "7e82f41b9fadfb3c",
+        "name": "Slice messages ✏️",
+        "info": "",
+        "x": 130,
+        "y": 980,
+        "wires": []
+    },
+    {
         "id": "e988a615367e2fbb",
         "type": "comment",
         "z": "00c9e81153b3763c",
@@ -3712,7 +3758,7 @@
         "type": "function",
         "z": "00c9e81153b3763c",
         "name": "Generate Group Title",
-        "func": "const ANTENNA_LABELS = {\n    \"ANT1\": \"A1\",\n    \"ANT2\": \"A2\"\n}\n\nconst flex_antennas = global.get(\"flex_antennas\")\nconst this_slice = flow.get(\"this_slice\")\nconst flex_slice = global.get(\"flex_slices\")[this_slice]\n\nlet parts = []\n\nif (flex_slice) {\n    parts.push(\"️<span class='ki2d-pill ki2d-blue'>\" + flex_slice.index_letter + \"</span>\")\n\n    let freq = flex_slice.RF_freq_fmt.split('.')\n    parts.push(\"<span class='ki2d-freq''><span class='ki2d-freq-megas'>\" + freq[0] + \"</span>.<span class='ki2d-freq-kilos'>\" + freq[1] + \"</span>.<span class='ki2d-freq-hertz'>\" + freq[2] + \"</span></span>\")\n\n    parts.push(flex_slice.mode)\n}\n\nif (flex_antennas) {\n    if (flex_antennas.rx == flex_antennas.tx) {\n        parts.push(ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n    } else {\n        parts.push(\n            (ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n            + \"/\" +\n            (ANTENNA_LABELS[flex_antennas.tx] || flex_antennas.tx)\n        )\n    }\n}\n\nreturn { payload: parts.join(\"&nbsp;&nbsp;&nbsp;\"), slice: this_slice }\n",
+        "func": "const ANTENNA_LABELS = {\n    \"ANT1\": \"A1\",\n    \"ANT2\": \"A2\"\n}\n\nconst flex_antennas = global.get(\"flex_antennas\")\nconst this_slice = flow.get(\"this_slice\")\nconst flex_slice = global.get(\"flex_slices\")[this_slice]\n\nlet parts = []\n\nif (flex_slice) {\n    parts.push(\"️<span class='ki2d-pill ki2d-blue'>\" + flex_slice.index_letter + \"</span>\")\n\n    let freq = flex_slice.RF_freq_fmt.split('.')\n    parts.push(\"<span class='ki2d-freq''><span class='ki2d-freq-megas'>\" + freq[0] + \"</span>.<span class='ki2d-freq-kilos'>\" + freq[1] + \"</span>.<span class='ki2d-freq-hertz'>\" + freq[2] + \"</span></span>\")\n\n    parts.push(flex_slice.mode)\n\n    if (flex_slice.tx) {\n        parts.push(\"️<span class='ki2d-pill ki2d-red'>TX</span>\")\n    }\n}\n\nif (flex_antennas) {\n    if (flex_antennas.rx == flex_antennas.tx) {\n        parts.push(ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n    } else {\n        parts.push(\n            (ANTENNA_LABELS[flex_antennas.rx] || flex_antennas.rx)\n            + \"/\" +\n            (ANTENNA_LABELS[flex_antennas.tx] || flex_antennas.tx)\n        )\n    }\n}\n\nreturn { payload: parts.join(\"&nbsp;&nbsp;&nbsp;\"), slice: this_slice }\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4439,7 +4485,7 @@
         "type": "function",
         "z": "00c9e81153b3763c",
         "name": "Capture TX/ATU State",
-        "func": "const this_slice = flow.get(\"this_slice\")\nconst slice = global.get(\"flex_slices\")[this_slice]\nconst flex_tx_status = global.get(\"flex_tx_status\")\nconst flex_atu_status = global.get(\"flex_atu_status\")\n\nconst atu_info = flow.get(\"atu_info\") || {\n    button_label: \"ATU\",\n    button_background: \"\",\n    button_enabled: true,\n};\n\nif (msg.topic === \"atu\") {\n    if (msg.payload.status === \"TUNE_MANUAL_BYPASS\") {\n        atu_info.enabled = false\n        atu_info.status = msg.payload.status\n        atu_info.button_command = \"atu start\"\n        atu_info.button_label = \"<small>NO ATU</small>\"\n        atu_info.button_background = \"gray\"\n        atu_info.button_enabled = true\n    } else if (msg.payload.status === \"TUNE_SUCCESSFUL\") {\n        atu_info.enabled = true\n        atu_info.status = msg.payload.status\n        atu_info.button_command = \"atu bypass\"\n        atu_info.button_label = \"ATU\"\n        atu_info.button_background = \"\"\n        atu_info.button_enabled = true\n\n        atu_info.max_swr = undefined\n    } else if (msg.payload.status === \"TUNE_IN_PROGRESS\") {\n        atu_info.enabled = false\n        atu_info.status = msg.payload.status\n        atu_info.button_command = \"atu start\"\n        atu_info.button_label = \"TU 🟡\"\n        atu_info.button_background = \"gray\"\n        atu_info.button_enabled = false\n    } else {\n        atu_info.button_label = \"ATU\"\n        atu_info.atu_button_background = \"\"\n        atu_info.button_enabled = true\n    }\n} else if (msg.topic.startsWith(\"TX-/\")) {\n    if (atu_info.status === \"TUNE_IN_PROGRESS\") {\n        atu_info.button_label = \"TU 🟡\"\n    } else {\n        atu_info.button_label = \"TX 🔴\"\n    }\n    atu_info.max_swr = Math.max(msg.payload.value, atu_info.max_swr || 1)\n} else if (msg.topic == \"interlock\") {\n    if (msg.payload.state === \"READY\") {\n        if (atu_info.enabled) {\n            atu_info.button_label = \"ATU\"\n        } else {\n            atu_info.button_label = \"<small>NO ATU</small>\"\n        }\n    }\n} else if (msg.topic.startsWith(\"antenna_switch\")) {\n    atu_info.max_swr = undefined\n}\n\nflow.set(\"atu_info\", atu_info)\n\nif (atu_info.max_swr) {\n    let color = \"\"\n    if (atu_info.max_swr > 2) color = \"red\"\n    else if(atu_info.max_swr > 1.5) color = \"orange\"\n\n    return {\n        label: atu_info.button_label + \"<br /><small style='color: \" + color + \"';>\" + atu_info.max_swr.toFixed(1) + \"</small>\",\n        enabled: atu_info.button_enabled,\n        background: atu_info.button_background\n    }\n} else {\n    return {\n        label: atu_info.button_label,\n        enabled: atu_info.button_enabled,\n        background: atu_info.button_background\n    }\n}\n\n\nreturn {\n    label: \"Tune <br /> \" + msg.payload.value\n}",
+        "func": "const this_slice = flow.get(\"this_slice\")\nconst slice = global.get(\"flex_slices\")[this_slice]\nconst flex_tx_status = global.get(\"flex_tx_status\")\nconst flex_atu = global.get(\"flex_atu\")\n\nconst atu_info = flow.get(\"atu_info\") || {\n    button_label: \"ATU\",\n    button_background: \"\",\n    button_enabled: true,\n};\n\nif (flex_atu.status === \"TUNE_MANUAL_BYPASS\" || flex_atu.status === \"TUNE_BYPASS\") {\n    atu_info.button_command = \"atu start\"\n    atu_info.button_label = \"<small>NO ATU</small>\"\n    atu_info.button_background = \"gray\"\n    atu_info.button_enabled = true\n} else if (flex_atu.status === \"TUNE_SUCCESSFUL\") {\n    atu_info.button_command = \"atu bypass\"\n    atu_info.button_label = \"ATU\"\n    atu_info.button_background = \"\"\n    atu_info.button_enabled = true\n} else if (flex_atu.status === \"TUNE_IN_PROGRESS\") {\n    atu_info.button_command = \"atu start\"\n    atu_info.button_label = \"TU 🟡\"\n    atu_info.button_background = \"gray\"\n    atu_info.button_enabled = false\n} else {\n    atu_info.button_label = \"ATU\"\n    atu_info.button_command = \"atu bypass\"\n    atu_info.button_background = \"\"\n    atu_info.button_enabled = true\n}\n\nif (msg.topic === \"atu\") {\n    if (slice.tx && msg.payload.status === \"TUNE_SUCCESSFUL\") {\n        atu_info.max_swr = undefined\n    }\n} else if (msg.topic.startsWith(\"TX-/\")) {\n    if (flex_atu.status === \"TUNE_IN_PROGRESS\") {\n        atu_info.button_label = \"TU 🟡\"\n    } else {\n        atu_info.button_label = \"TX 🔴\"\n    }\n    atu_info.max_swr = Math.max(msg.payload.value, atu_info.max_swr || 1)\n    // } else if (msg.topic == \"interlock\") {\n    //     if (msg.payload.state === \"READY\") {\n    //         if (flex_atu.enabled) {\n    //             atu_info.button_label = \"ATU\"\n    //             atu_info.button_command = \"atu bypass\"\n    //         } else {\n    //             atu_info.button_label = \"<small>NO ATU</small>\"\n    //             atu_info.button_command = \"atu start\"\n    //         }\n    //     }\n} else if (msg.topic.startsWith(\"antenna_switch\")) {\n    atu_info.max_swr = undefined\n}\n\nif (!slice.tx) {\n    atu_info.button_command = \"slice set \" + this_slice + \" tx=1\"\n    flow.set(\"atu_info\", atu_info)\n\n    return {\n        label: \"NO TX\",\n        enabled: true,\n        background: \"#222\"\n    }\n} else {\n    flow.set(\"atu_info\", atu_info)\n\n    if (atu_info.max_swr) {\n        let color = \"\"\n        if (atu_info.max_swr > 2) color = \"red\"\n        else if (atu_info.max_swr > 1.5) color = \"orange\"\n\n        return {\n            label: atu_info.button_label + \"<br /><small style='color: \" + color + \"';>\" + atu_info.max_swr.toFixed(1) + \"</small>\",\n            enabled: atu_info.button_enabled,\n            background: atu_info.button_background\n        }\n    } else {\n        return {\n            label: atu_info.button_label,\n            enabled: atu_info.button_enabled,\n            background: atu_info.button_background\n        }\n    }\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4826,7 +4872,7 @@
         "type": "debug",
         "z": "00c9e81153b3763c",
         "name": "debug 5",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -4836,6 +4882,42 @@
         "statusType": "auto",
         "x": 900,
         "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b0756ae05aeb63c8",
+        "type": "link in",
+        "z": "00c9e81153b3763c",
+        "name": "Slice Messages into Slice 0 Flow",
+        "links": [
+            "0a52f8576ea01b50"
+        ],
+        "x": 175,
+        "y": 980,
+        "wires": [
+            [
+                "a3e3239f0b48ba38"
+            ]
+        ]
+    },
+    {
+        "id": "2898cab625fc6839",
+        "type": "comment",
+        "z": "00c9e81153b3763c",
+        "name": "Slice messages ✏️",
+        "info": "",
+        "x": 130,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "94e3af3bd9d32958",
+        "type": "comment",
+        "z": "00c9e81153b3763c",
+        "name": "Globals ✏️",
+        "info": "",
+        "x": 500,
+        "y": 80,
         "wires": []
     },
     {
